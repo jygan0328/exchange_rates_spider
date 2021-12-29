@@ -5,6 +5,7 @@
 ### Python ###
 
 # user-defined
+data/
 log/
 
 # Byte-compiled / optimized / DLL files
