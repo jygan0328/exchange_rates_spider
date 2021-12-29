@@ -8,6 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 import os
+import logging
 from datetime import datetime
 
 BOT_NAME = 'exchange_rates_spider'
@@ -25,11 +26,21 @@ ROBOTSTXT_OBEY = True
 # Desired file format
 FEED_FORMAT = "json"
  
-# Name of the file where
-# data extracted is stored
+# Name of the file where data extracted is stored
 FEED_URI = f"data/{datetime.now().strftime('%Y%m%d')}_exchange_rates.json"
 if not os.path.exists('data'):
     os.makedirs('data')
+
+#LOGGING settings
+LOG_FILE = f"logging/{datetime.now().strftime('%Y%m%d')}.log"
+if not os.path.exists('logging'):
+    os.makedirs('logging')
+LOG_ENCODING = 'utf-8'
+LOG_ENABLED = True
+LOG_LEVEL = logging.INFO
+LOG_FORMAT = '[%(levelname)s] - %(name)s\n%(asctime)s - %(message)s\n'
+LOG_DATEFORMAT = '%Y.%m.%d %H:%M:%S'
+
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
