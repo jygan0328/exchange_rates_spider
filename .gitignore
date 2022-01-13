@@ -7,6 +7,8 @@
 # user-defined
 data/
 log/
+logging/
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

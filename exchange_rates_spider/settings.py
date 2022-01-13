@@ -17,20 +17,28 @@ SPIDER_MODULES = ['exchange_rates_spider.spiders']
 NEWSPIDER_MODULE = 'exchange_rates_spider.spiders'
 
 
+CHROME_DRIVER = r"C:\Users\jygan\Desktop\projects\driver\chromedriver_win32\chromedriver.exe"
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'bnm_exchange_rates_spider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-# Desired file format
-FEED_FORMAT = "json"
- 
-# Name of the file where data extracted is stored
-FEED_URI = f"data/{datetime.now().strftime('%Y%m%d')}_exchange_rates.json"
-if not os.path.exists('data'):
-    os.makedirs('data')
-
+'''
+FEEDS = {
+    f"{datetime.now().strftime('%Y%m%d')}_exchange_rates.json": {
+        'format': 'json',
+        'encoding': 'utf8',
+        'store_empty': False,
+        'fields': None,
+        'indent': 4,
+        'item_export_kwargs': {
+           'export_empty_fields': True,
+        },
+    },
+}
+'''
 #LOGGING settings
 LOG_FILE = f"logging/{datetime.now().strftime('%Y%m%d')}.log"
 if not os.path.exists('logging'):
@@ -48,13 +56,13 @@ LOG_DATEFORMAT = '%Y.%m.%d %H:%M:%S'
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
-#CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_IP = 8
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -85,9 +93,12 @@ LOG_DATEFORMAT = '%Y.%m.%d %H:%M:%S'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'exchange_rates.pipelines.ExchangeRatesPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'exchange_rates_spider.pipelines.DuplicatesPipeline': 100,
+    'exchange_rates_spider.pipelines.SaveExchangeRatePipeline': 200,
+}
+
+CONNECTION_STRING = 'sqlite:///exchange_rates.db'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
