@@ -16,29 +16,12 @@ BOT_NAME = 'exchange_rates_spider'
 SPIDER_MODULES = ['exchange_rates_spider.spiders']
 NEWSPIDER_MODULE = 'exchange_rates_spider.spiders'
 
-
-CHROME_DRIVER = r"C:\Users\jygan\Desktop\projects\driver\chromedriver_win32\chromedriver.exe"
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'bnm_exchange_rates_spider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-'''
-FEEDS = {
-    f"{datetime.now().strftime('%Y%m%d')}_exchange_rates.json": {
-        'format': 'json',
-        'encoding': 'utf8',
-        'store_empty': False,
-        'fields': None,
-        'indent': 4,
-        'item_export_kwargs': {
-           'export_empty_fields': True,
-        },
-    },
-}
-'''
 #LOGGING settings
 LOG_FILE = f"logging/{datetime.now().strftime('%Y%m%d')}.log"
 if not os.path.exists('logging'):
