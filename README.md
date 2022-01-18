@@ -12,12 +12,18 @@ The data source is from the below websites/API:
 
 
 ## Requirement
-`$ pip install Scrapy`
+```
+$ pip install Scrapy
+```
 
 ## How to Install and Run the Project
 1. Git clone this project.
-`git clone https://github.com/jygan0328/exchange_rates_spider.git`
+```
+git clone https://github.com/jygan0328/exchange_rates_spider.git
+```
 2. Create a virtual environment (conda/venv) and install package in `requirements.txt`.
 3. Run the command in the project directory.
-`python crawl.py`
+```
+python crawl.py
+```
 4. The data collected are stored in `sqlite3` database in project directory. You may change to use any other DBMS by changing `CONNECTION_STRING` in settings file.
