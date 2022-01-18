@@ -27,7 +27,12 @@ class BNM_Exchange_Rates_Spider(scrapy.Spider):
                 currencies = row.css("th > b::text").getall()
             else:
                 row_data = row.css("td::text").getall()
+                #skip if empty row
                 if len(row_data) < 10:
+                    continue
+                
+                #skip if not current date
+                if row_data[0] != datetime.now().strftime("%d %b %Y"):
                     continue
 
                 for i, c in enumerate(currencies, start=1):
