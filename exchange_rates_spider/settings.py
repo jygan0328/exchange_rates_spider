@@ -81,6 +81,7 @@ ITEM_PIPELINES = {
     'exchange_rates_spider.pipelines.SaveExchangeRatePipeline': 200,
 }
 
+#database connection string
 CONNECTION_STRING = 'sqlite:///exchange_rates.db'
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -1,8 +1,6 @@
-from sqlalchemy import create_engine, Column, Table, ForeignKey, MetaData
-from sqlalchemy.orm import relationship
+from sqlalchemy import create_engine, Column
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import (
-    Integer, String, Date, DateTime, Float, Boolean, Text)
+from sqlalchemy import Integer, String, Date, Float
 from scrapy.utils.project import get_project_settings
 
 Base = declarative_base()
@@ -18,7 +16,6 @@ def db_connect():
 
 def create_table(engine):
     Base.metadata.create_all(engine)
-
 
 
 class ExchangeRate(Base):

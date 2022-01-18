@@ -23,7 +23,8 @@ class SaveExchangeRatePipeline(object):
 
 
     def process_item(self, item, spider):
-        """Save quotes in the database
+        """
+        Save exchange rate in the database
         This method is called for every item pipeline component
         """
         session = self.Session()
@@ -58,13 +59,17 @@ class DuplicatesPipeline(object):
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
+        '''
+        Skip duplicated exchange rate based on date and currency
+        '''
         session = self.Session()
         exist_exchange_rate = session.query(ExchangeRate).filter_by(
             date_now = item["date_now"],
             currency = item["currency"]
         ).first()
         session.close()
-        if exist_exchange_rate is not None:  # the current quote exists
+        if exist_exchange_rate is not None:
+            #the currency exists
             raise DropItem("Duplicate item found: %s" % item["currency"])
         else:
             return item

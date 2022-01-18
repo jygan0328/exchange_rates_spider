@@ -20,6 +20,8 @@ class BNM_Exchange_Rates_Spider(scrapy.Spider):
     def parse(self, response):
         data = {}
         currencies = []
+
+        #process the html data into a dictionary
         for row in response.css("table#dvData2 > tr"):
             if row.css("th"):
                 currencies = row.css("th > b::text").getall()
@@ -35,7 +37,8 @@ class BNM_Exchange_Rates_Spider(scrapy.Spider):
                         data[row_data[0]] = {
                             c: row_data[i]
                         }
-
+        
+        #convert the dictionary data into items
         for date_now, xrates in data.items():
             for curr, val in xrates.items():
                 loader = ItemLoader(item=ExchangeRateItem())
